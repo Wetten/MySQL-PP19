@@ -1,0 +1,74 @@
+drop database if exists SanFranciscoCoffeHosue;
+create database SanFranciscoCoffeHosue default character set=utf8;
+use SanFranciscoCoffeHosue;
+
+
+create table franšiza(
+id int not null primary key auto_increment,
+vlasnik int not null,
+zaposlenik int not null,
+adresa varchar (200) not null,
+grad varchar (200),
+država varchar (200) ,
+veličinam3 decimal (5.2)
+ );
+
+create table osoba(
+id int not null primary key auto_increment,
+ime varchar (100) not null,
+prezime varchar (100) not null,
+OIB char (11),
+IBAN varchar (34),
+email varchar (100) not null,
+adresa varchar (200) not null
+);
+
+create table vlasnik(
+id int not null primary key auto_increment,
+osoba int not null
+);
+
+create table zaposlenik(
+id int not null primary key auto_increment,
+osoba int not null
+);
+
+create table proizvod(
+id int not null primary key auto_increment,
+naziv varchar (100) not null,
+kategorija varchar (100) not null,
+boja varchar (50),
+cijena decimal (18,2),
+dostava boolean,
+kupac int not null
+);
+
+create table kupac(
+id int not null primary key auto_increment,
+osoba int not null
+);
+
+
+
+
+alter table franšiza add foreign key (vlasnik) references vlasnik (id);
+alter table franšiza add foreign key (zaposlenik) references zaposlenik (id);
+
+alter table vlasnik add foreign key (osoba) references osoba (id);
+alter table zaposlenik add foreign key (osoba) references osoba (id);
+
+alter table proizvod add foreign key (kupac) references osoba (id);
+
+alter table kupac add foreign key (osoba) references osoba (id);
+
+
+
+insert into franšiza
+(id,vlasnik,zaposlenik,adresa,grad,država,veličinam3)
+values
+(null,null,null,'Radićeva 12','Osijek','Hrvatska',40); 
+
+
+insert into osoba 
+
+select * from osoba;
